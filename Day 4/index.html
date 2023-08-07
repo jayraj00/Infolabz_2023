@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Signika+Negative:300,regular,500,600,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <!-- <link rel="script" href="./script.js"> -->
+  </head>
+  <body>
+    <div class="input-group set">
+      <input
+        id="pinData"
+        type="text"
+        class="form-control"
+        placeholder="Pin code"
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          onclick="formData()"
+        >
+          Button
+        </button>
+      </div>
+    </div>
+
+    <div class="tblSet">
+      <table
+        id="tblData"
+        class="mgn table-striped table table-bordered table-hover"
+      >
+        <tr>
+          <th>Status</th>
+          <td id="status" colspan="2"></td>
+          <th colspan="2">Message</th>
+          <td id="msg" colspan="6"></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <th>Branch Type</th>
+          <th>DeliveryStatus</th>
+          <th>Circle</th>
+          <th>District</th>
+          <th>Division</th>
+          <th>Region</th>
+          <th>Block</th>
+          <th>State</th>
+          <th>Country</th>
+          <th>Pincode</th>
+        </tr>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

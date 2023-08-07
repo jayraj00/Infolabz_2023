@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>COVID-19 Data</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 20px;
+      }
+
+      .dark-mode {
+        background-color: #333;
+        color: #fff;
+      }
+
+      .dark-mode th,
+      .dark-mode td {
+        border-color: #fff;
+      }
+
+      .dark-mode .btn {
+        background-color: #333;
+        border-color: #fff;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mb-3">
+        <button id="themeToggle" class="btn btn-sm btn-primary">
+          Toggle Theme
+        </button>
+      </div>
+
+      <table id="covidTable" class="table table-bordered">
+        <thead class="dark-mode">
+          <tr>
+            <th>Date</th>
+            <th>Daily Confirmed</th>
+            <th>Daily Deceased</th>
+            <th>Daily Recovered</th>
+            <th>Total Confirmed</th>
+            <th>Total Deceased</th>
+            <th>Total Recovered</th>
+          </tr>
+        </thead>
+        <tbody class="table-body"></tbody>
+      </table>
+    </div>
+
+    <script>
+      async function fetchData() {
+        const response = await fetch("https://data.covid19india.org/data.json");
+        const data = await response.json();
+        const timeSeriesData = data["cases_time_series"];
+        return timeSeriesData;
+      }
+
+      function calculateTotals(timeSeriesData) {
+        let totalConfirmed = 0;
+        let totalDeceased = 0;
+        let totalRecovered = 0;
+
+        timeSeriesData.forEach((entry) => {
+          totalConfirmed += parseInt(entry.totalconfirmed);
+          totalDeceased += parseInt(entry.totaldeceased);
+          totalRecovered += parseInt(entry.totalrecovered);
+        });
+
+        return { totalConfirmed, totalDeceased, totalRecovered };
+      }
+
+      async function displayData() {
+        const timeSeriesData = await fetchData();
+        const totals = calculateTotals(timeSeriesData);
+        const tableBody = document.querySelector(".table-body");
+
+        timeSeriesData.forEach((entry) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${entry.date}</td>
+                    <td>${entry.dailyconfirmed}</td>
+                    <td>${entry.dailydeceased}</td>
+                    <td>${entry.dailyrecovered}</td>
+                    <td>${entry.totalconfirmed}</td>
+                    <td>${entry.totaldeceased}</td>
+                    <td>${entry.totalrecovered}</td>
+                `;
+          tableBody.appendChild(row);
+        });
+
+        const totalRow = document.createElement("tr");
+        totalRow.innerHTML = `
+                <td>Total</td>
+                <td>${totals.totalConfirmed}</td>
+                <td>${totals.totalDeceased}</td>
+                <td>${totals.totalRecovered}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            `;
+        tableBody.appendChild(totalRow);
+      }
+
+      function toggleTheme() {
+        document.body.classList.toggle("dark-mode");
+      }
+
+      const themeToggle = document.getElementById("themeToggle");
+      themeToggle.addEventListener("click", toggleTheme);
+
+      displayData();
+    </script>
+  </body>
+</html>

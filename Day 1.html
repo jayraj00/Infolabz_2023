@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=REM:wght@200&display=swap");
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: "Roboto Slab", serif;
+        background: #a1628a;
+        background: linear-gradient(265deg, #e0b170, #c2e3d8);
+        overflow: hidden;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0px 0px 24px 7px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 0px 24px 7px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0px 0px 24px 7px rgba(0, 0, 0, 0.3);
+      }
+
+      th,
+      td {
+        border: 1px solid rgb(0, 0, 0);
+        padding: 8px;
+        text-align: left;
+      }
+      tr:nth-child(even) {
+        background-color: whitesmoke;
+      }
+      tr:nth-child(odd) {
+        background-color: rgb(214, 214, 214);
+      }
+      th {
+        background-color: #41e2d0;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="dataTable" border="1">
+      <tr>
+        <th>City Name</th>
+        <th>Cases Reported</th>
+        <th>Cases Recovered</th>
+        <th>Deaths</th>
+      </tr>
+      <script>
+        var data_var = {
+          Ahmedabad: [1000, 200, 10],
+          Surat: [2500, 150, 6],
+          Vadodara: [2000, 500, 90],
+          Amreli: [1000, 200, 10],
+          Bhavnagar: [2500, 150, 6],
+          Dahod: [2000, 500, 90],
+          Jamnagar: [1000, 200, 10],
+          Kheda: [2500, 150, 6],
+          Tapi: [2000, 500, 90],
+          Patan: [1000, 200, 10],
+          Valsad: [2500, 150, 6],
+          Vadodara: [2000, 500, 90],
+        };
+
+        function thMaker(data) {
+          for (var city in data) {
+            var row = document.createElement("tr");
+            var cityData = data[city];
+
+            var cityNameCell = document.createElement("td");
+            cityNameCell.textContent = city;
+            row.appendChild(cityNameCell);
+
+            for (var i = 0; i < cityData.length; i++) {
+              var cell = document.createElement("td");
+              cell.textContent = cityData[i];
+              row.appendChild(cell);
+            }
+
+            document.getElementById("dataTable").appendChild(row);
+          }
+        }
+
+        thMaker(data_var);
+      </script>
+    </table>
+  </body>
+</html>
